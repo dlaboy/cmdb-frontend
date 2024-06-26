@@ -1,4 +1,4 @@
-import { useMemo } from "react";
+import { useContext, useMemo } from "react";
 import { Stack, IconButton } from "@fluentui/react";
 import DOMPurify from "dompurify";
 
@@ -7,8 +7,10 @@ import styles from "./Answer.module.css";
 import { AskResponse, getCitationFilePath } from "../../api";
 import { parseAnswerToHtml } from "./AnswerParser";
 import { AnswerIcon } from "./AnswerIcon";
+import { darkContext } from "../../pages/context/darkMode";
 
 const userLanguage = navigator.language;
+
 let citation_label_text = '';
 if (userLanguage.startsWith('pt')) {
   citation_label_text = 'Fontes';
@@ -49,11 +51,12 @@ export const Answer = ({
     showSources
 }: Props) => {
     const parsedAnswer = useMemo(() => parseAnswerToHtml(answer.answer, !!showSources, onCitationClicked), [answer]);
+    const {isDark,setIsDark} = useContext(darkContext)
 
     const sanitizedAnswerHtml = DOMPurify.sanitize(parsedAnswer.answerHtml);
 
     return (
-        <Stack className={`${styles.answerContainer} ${isSelected && styles.selected}`} verticalAlign="space-between">
+        <Stack className={`${isDark ? styles.answerContainer:styles.answerContainerDark } ${isSelected && styles.selected}`} verticalAlign="space-between">
             <Stack.Item>
                 <Stack horizontal horizontalAlign="space-between">
                     <AnswerIcon />

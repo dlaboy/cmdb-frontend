@@ -3,6 +3,8 @@ import { animated, useSpring } from "@react-spring/web";
 
 import styles from "./Answer.module.css";
 import { AnswerIcon } from "./AnswerIcon";
+import { useContext } from "react";
+import { darkContext } from "../../pages/context/darkMode";
 
 const userLanguage = navigator.language;
 let generating_answer_text = '';
@@ -19,10 +21,11 @@ export const AnswerLoading = () => {
         from: { opacity: 0 },
         to: { opacity: 1 }
     });
+    const {isDark,setIsDark} = useContext(darkContext)
 
     return (
         <animated.div style={{ ...animatedStyles }}>
-            <Stack className={styles.answerContainer} verticalAlign="space-between">
+            <Stack className={`${isDark ? styles.answerContainer:styles.answerContainerDark }`} verticalAlign="space-between">
                 <AnswerIcon />
                 <Stack.Item grow>
                     <p className={styles.answerText}>

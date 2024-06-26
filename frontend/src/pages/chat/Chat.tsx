@@ -1,4 +1,4 @@
-import { useRef, useState, useEffect } from "react";
+import { useRef, useState, useEffect, useContext } from "react";
 import { Checkbox, Panel, DefaultButton, TextField, SpinButton } from "@fluentui/react";
 import { SparkleFilled, TabDesktopMultipleBottomRegular } from "@fluentui/react-icons";
 
@@ -11,21 +11,21 @@ import { ExampleList } from "../../components/Example";
 import { UserChatMessage } from "../../components/UserChatMessage";
 import { AnalysisPanel, AnalysisPanelTabs } from "../../components/AnalysisPanel";
 import { ClearChatButton } from "../../components/ClearChatButton";
+import { ConversationHistoryButton } from "../../components/ConversationHistoryButton";
 import { getTokenOrRefresh } from "../../components/QuestionInput/token_util";
 import { SpeechConfig, AudioConfig, SpeechSynthesizer, ResultReason } from "microsoft-cognitiveservices-speech-sdk";
 import { getFileType } from "../../utils/functions";
+import { darkContext } from "../context/darkMode";
 
-const userLanguage = navigator.language;
-let error_message_text = "";
-if (userLanguage.startsWith("pt")) {
-    error_message_text = "Desculpe, tive um problema técnico com a solicitação. Por favor informar o erro a equipe de suporte. ";
-} else if (userLanguage.startsWith("es")) {
-    error_message_text = "Lo siento, yo tuve un problema con la solicitud. Por favor informe el error al equipo de soporte. ";
-} else {
-    error_message_text = "I'm sorry, I had a problem with the request. Please report the error to the support team. ";
-}
+
+
 
 const Chat = () => {
+
+    const {isDark,setIsDark} = useContext(darkContext)
+    const {userLanguage,setLanguage} = useContext(darkContext)
+
+
     // speech synthesis is disabled by default
     const speechSynthesisEnabled = false;
 
@@ -154,22 +154,44 @@ const Chat = () => {
         }
     };
 
+
+
+    let error_message_text = "";
+    if (userLanguage.startsWith("pt")) {
+        error_message_text = "Desculpe, tive um problema técnico com a solicitação. Por favor informar o erro a equipe de suporte. ";
+    } else if (userLanguage.startsWith("es")) {
+        error_message_text = "Lo siento, yo tuve un problema con la solicitud. Por favor informe el error al equipo de soporte. ";
+    } else {
+        error_message_text = "I'm sorry, I had a problem with the request. Please report the error to the support team. ";
+    }
+    
+
     useEffect(() => {
         chatMessageStreamEnd.current?.scrollIntoView({ behavior: "smooth" });
         if (triggered.current === false) {
             triggered.current = true;
             console.log(triggered.current);
         }
-        const language = navigator.language;
-        if (language.startsWith("pt")) {
+        
+    if (userLanguage.startsWith("pt")) {
+        setPlaceholderText("Escreva aqui sua pergunta");
+    }
+    if (userLanguage.startsWith("es")) {
+        setPlaceholderText("Escribe tu pregunta aqui");
+    } else {
+        setPlaceholderText("Write your question here");
+    }
+    }, [isLoading]);
+    useEffect(()=>{
+        if (userLanguage.startsWith("pt")) {
             setPlaceholderText("Escreva aqui sua pergunta");
         }
-        if (language.startsWith("es")) {
+        if (userLanguage.startsWith("es")) {
             setPlaceholderText("Escribe tu pregunta aqui");
         } else {
             setPlaceholderText("Write your question here");
         }
-    }, [isLoading]);
+    },[userLanguage])
 
     const onPromptTemplateChange = (_ev?: React.FormEvent<HTMLInputElement | HTMLTextAreaElement>, newValue?: string) => {
         setPromptTemplate(newValue || "");
@@ -244,9 +266,18 @@ const Chat = () => {
         setSelectedAnswer(index);
     };
 
+    const {seeCH, setSeeCH} = useContext(darkContext)
+
+    const toggleConversation =()=>{
+        setSeeCH(prev => !prev)
+
+}
+
     return (
-        <div className={styles.container}>
+        <div className={`${isDark ? styles.container:styles.containerDark }`}>
+             
             <div className={styles.commandsContainer}>
+                <ConversationHistoryButton  className={styles.commandButton} onClick={toggleConversation} disabled={!lastQuestionRef.current || isLoading}/>
                 <ClearChatButton className={styles.commandButton} onClick={clearChat} disabled={!lastQuestionRef.current || isLoading} />
             </div>
             <div className={styles.chatRoot}>
@@ -300,6 +331,7 @@ const Chat = () => {
                         <QuestionInput clearOnSend placeholder={placeholderText} disabled={isLoading} onSend={question => makeApiRequestGpt(question)} />
                     </div>
                 </div>
+              
 
                 {answers.length > 0 && fileType !== "" && activeAnalysisPanelTab && (
                     <AnalysisPanel

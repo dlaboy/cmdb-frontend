@@ -1,8 +1,17 @@
+
 .container {
     flex: 1;
     display: flex;
     flex-direction: column;
-    margin-top: 20px;
+    /* padding-top: 20px; */
+}
+
+.containerDark {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    /* padding-top: 20px; */
+    background-color: #181818;
 }
 
 .chatRoot {
@@ -85,7 +94,8 @@
     padding-right: 24px;
     width: 100%;
     max-width: 1028px;
-    background: #f2f2f2;
+    /* background: #f2f2f2; */
+    /* background-color: red; */
 }
 
 .chatAnalysisPanel {
@@ -106,10 +116,17 @@
 
 .commandsContainer {
     display: flex;
-    align-self: flex-end;
+    justify-content: space-between;
+    padding-top: 20px;
+    margin-left: 120px;
+    margin-right: 120px;
+
 }
 
 .commandButton {
     margin-right: 20px;
     margin-bottom: 20px;
+    z-index: 1;
 }
+
+
