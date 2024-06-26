@@ -272,6 +272,19 @@ const Chat = () => {
         setSeeCH(prev => !prev)
 
 }
+    const preguntas = [
+        "¿Tenemos productos de pasarelas de pago?"
+        ,"¿La compañía tiene soluciones para empresas facturadoras?"
+        ,"¿Qué aplicaciones y servicios posee la compañía?"
+        ,"¿Qué servicios están localizados en Brasil?"
+    ]
+
+    const {starter, setStarter} = useContext(darkContext)
+
+    
+    const handleStarter = (start:string) =>{
+        setStarter(start)
+    }
 
     return (
         <div className={`${isDark ? styles.container:styles.containerDark }`}>
@@ -284,8 +297,16 @@ const Chat = () => {
                 <div className={styles.chatContainer}>
                     {!lastQuestionRef.current ? (
                         <div className={styles.chatEmptyState}>
-                            {/*<SparkleFilled fontSize={"120px"} primaryFill={"rgba(115, 118, 225, 1)"} aria-hidden="true" aria-label="Chat logo" />
-                            <h1 className={styles.chatEmptyStateTitle}>Conversación con datos</h1>*/}
+                            {/* <div className={`${isDark ? styles.conversationStarters:styles.conversationStartersDark }`}>Conversation Starters</div> */}
+                            
+                            <div className={styles.conversationStartersOptions}>
+                                <div className={styles.conversationStarterOption} onClick={()=> handleStarter(preguntas[0])}>{preguntas[0]}</div>
+                                <div className={styles.conversationStarterOption} onClick={()=> handleStarter(preguntas[1])}>{preguntas[1]}</div>
+                                <div className={styles.conversationStarterOption} onClick={()=> handleStarter(preguntas[2])}>{preguntas[2]}</div>
+                                <div className={styles.conversationStarterOption} onClick={()=> handleStarter(preguntas[3])}>{preguntas[3]}</div>
+                            </div>
+                            {/* <SparkleFilled fontSize={"120px"} primaryFill={"rgba(115, 118, 225, 1)"} aria-hidden="true" aria-label="Chat logo" />
+                            <h1 className={styles.chatEmptyStateTitle}>Conversación con datos</h1> */}
                         </div>
                     ) : (
                         <div className={styles.chatMessageStream}>
@@ -328,7 +349,7 @@ const Chat = () => {
                     )}
 
                     <div className={styles.chatInput}>
-                        <QuestionInput clearOnSend placeholder={placeholderText} disabled={isLoading} onSend={question => makeApiRequestGpt(question)} />
+                        <QuestionInput clearOnSend  placeholder={placeholderText} disabled={isLoading} onSend={question => makeApiRequestGpt(question)} />
                     </div>
                 </div>
               

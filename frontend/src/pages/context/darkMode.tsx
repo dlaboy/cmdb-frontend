@@ -10,6 +10,8 @@ interface DarkContextProps {
   setSeeCH: React.Dispatch<React.SetStateAction<boolean>>;
   userLanguage: string;
   setLanguage: React.Dispatch<React.SetStateAction<string>>;
+  starter: string;
+  setStarter: React.Dispatch<React.SetStateAction<string>>;
 }
 
 // Create the context with initial values
@@ -19,7 +21,9 @@ const initialContext: DarkContextProps = {
   seeCH: false,
   setSeeCH: () => {},
   userLanguage: 'en',
-  setLanguage: () => {}
+  setLanguage: () => {},
+  starter: '',
+  setStarter: () => {}
 };
 
 // Create the context
@@ -35,6 +39,7 @@ export const DarkThemeProvider: React.FC<DarkThemeProviderProps> = ({ children }
   const [isDark, setIsDark] = useState(false);
   const [seeCH, setSeeCH] = useState(false);
   const [userLanguage, setLanguage] = useState('en'); // Default language is English
+  const [starter,setStarter] = useState('');
 
   
 
@@ -45,7 +50,9 @@ export const DarkThemeProvider: React.FC<DarkThemeProviderProps> = ({ children }
     seeCH,
     setSeeCH,
     userLanguage,
-    setLanguage
+    setLanguage,
+    starter,
+    setStarter
   };
 
   // Render provider with context value

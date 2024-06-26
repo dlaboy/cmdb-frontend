@@ -1,7 +1,7 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Stack, TextField } from "@fluentui/react";
 import { getTokenOrRefresh } from './token_util';
-import { Send28Filled, BookOpenMicrophone28Filled, SlideMicrophone32Filled } from "@fluentui/react-icons";
+import { Send28Filled, BookOpenMicrophone28Filled, SlideMicrophone32Filled, TriangleRegular } from "@fluentui/react-icons";
 import { ResultReason, SpeechConfig, AudioConfig, SpeechRecognizer } from 'microsoft-cognitiveservices-speech-sdk';
 
 import styles from "./QuestionInput.module.css";
@@ -11,13 +11,36 @@ interface Props {
     disabled: boolean;
     placeholder?: string;
     clearOnSend?: boolean;
+    // conversationStarter:string
 }
 
-export const QuestionInput = ({ onSend, disabled, placeholder, clearOnSend }: Props) => {
+export const QuestionInput = ({ onSend, disabled, placeholder, clearOnSend}: Props) => {
+    
+    
     const [question, setQuestion] = useState<string>("");
-
-
+    
+    
     const {isDark, setIsDark} = useContext(darkContext)
+    const {starter, setStarter} = useContext(darkContext)
+    const [triggerStarter,setTrigger] = useState(0)
+    
+    useEffect(()=>{
+        if(starter !== ""){
+            setQuestion(starter)
+            setTrigger(prev => prev + 1)
+        }  
+    },[starter])
+
+    useEffect(()=>{
+        onSend(question)
+        if (clearOnSend) {
+            setQuestion("");
+        }
+    },[triggerStarter])
+    
+    
+
+
     const sendQuestion = () => {
         if (disabled || !question.trim()) {
             return;
@@ -79,6 +102,8 @@ export const QuestionInput = ({ onSend, disabled, placeholder, clearOnSend }: Pr
         } else if (newValue.length <= 1000) {
             setQuestion(newValue);
         }
+     
+
     };
 
     const sendQuestionDisabled = disabled || !question.trim();

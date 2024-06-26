@@ -199,7 +199,8 @@
 .settingsContainer{
     display: flex;
     flex-direction: column;
-    margin-left: 50px;
+    margin-left: 80px;
+    cursor: pointer;
     /* position: absolute; */
 }
 /* .evertecHeader{

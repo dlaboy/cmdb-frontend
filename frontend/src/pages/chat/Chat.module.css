@@ -5,6 +5,41 @@
     flex-direction: column;
     /* padding-top: 20px; */
 }
+.conversationStarters{
+    color: grey;
+}
+.conversationStartersDark{
+    color: grey;
+
+
+
+}
+.conversationStartersOptions{
+    display: flex;
+    flex-direction: row;
+    justify-content:space-around;
+    gap: 3rem;
+    width: 75%;
+    color: grey;
+}
+.conversationStarterOption{
+    padding: 2rem;
+    width: 15rem;
+    color: grey;
+    border-radius: 50px;
+    border-style: solid;
+    border-width: 0.5px;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+.conversationStarterOption:hover{
+
+    color: rgb(223, 124, 88);
+
+}
 
 .containerDark {
     flex: 1;
@@ -31,10 +66,11 @@
     flex-grow: 1;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: space-evenly;
     align-items: center;
     max-height: 1024px;
     padding-top: 60px;
+    width: 100%;
 }
 
 .chatEmptyStateTitle {

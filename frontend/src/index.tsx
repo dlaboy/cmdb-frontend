@@ -20,10 +20,13 @@ export default function App() {
 
     const [userLanguage, setLanguage] = useState("en"); // Default language is English
 
+  const [starter,setStarter] = useState('');
+
+
 
     
     return (
-        <darkContext.Provider value={{isDark,setIsDark, seeCH,setSeeCH,userLanguage,setLanguage}}>
+        <darkContext.Provider value={{isDark,setIsDark, seeCH,setSeeCH,userLanguage,setLanguage,starter,setStarter}}>
             <HashRouter>
                 <Routes>
                     <Route path="/" element={<Layout />}>
