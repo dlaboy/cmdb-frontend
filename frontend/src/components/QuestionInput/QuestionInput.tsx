@@ -173,7 +173,7 @@ export const QuestionInput = ({ onSend, disabled, placeholder, clearOnSend}: Pro
             {file.name}
             <button className={styles.deleteFile} onClick={handleDeleteFile}>x</button>
             </div>}
-            {fileContent && <div><strong>Content:</strong><pre>{fileContent}</pre></div>}
+            {/* {fileContent && <div><strong>Content:</strong><pre>{fileContent}</pre></div>} */}
         
       </div>
     </div>
