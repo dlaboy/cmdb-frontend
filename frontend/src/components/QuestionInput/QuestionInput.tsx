@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import { Stack, TextField } from "@fluentui/react";
 import { getTokenOrRefresh } from './token_util';
 import { Send28Filled, BookOpenMicrophone28Filled, SlideMicrophone32Filled, TriangleRegular } from "@fluentui/react-icons";
@@ -38,6 +38,15 @@ export const QuestionInput = ({ onSend, disabled, placeholder, clearOnSend}: Pro
         }
     },[triggerStarter])
     
+    const [file, setFile] = useState(null);
+    const [fileContent, setFileContent] = useState('');
+    const fileInputRef = useRef(null);
+
+
+    useEffect(()=>{
+        console.log("File: ",file)
+    }
+    ,[file])
     
 
 
@@ -46,7 +55,13 @@ export const QuestionInput = ({ onSend, disabled, placeholder, clearOnSend}: Pro
             return;
         }
 
-        onSend(question);
+        if (fileContent == '') {
+            onSend(question);
+        }
+        else{
+            let combinedQuestion = `Question: ${question}\nFile Content:\n${fileContent}`;
+            onSend(combinedQuestion)
+        }
 
         if (clearOnSend) {
             setQuestion("");
@@ -108,8 +123,62 @@ export const QuestionInput = ({ onSend, disabled, placeholder, clearOnSend}: Pro
 
     const sendQuestionDisabled = disabled || !question.trim();
 
+    const [attachmentOptions,setAttachmentOptions] = useState(false)
+    
+    const handleAttach = () =>{
+        setAttachmentOptions(prev => !prev)
+    }
+
+
+  
+    // Handle file selection
+    const handleFileChange = (event) => {
+      setFile(event.target.files[0]); // Set the selected file
+      if (event.target.files[0]) {
+        const reader = new FileReader();
+        reader.onload = (e) => {
+          setFileContent(e.target.result); // Reading the file content
+        };
+        if 
+        reader.readAsText(event.target.files[0]); // Assumes the file is a text file
+      }
+    };
+  
+    // Handle button click to trigger file input
+    const handleButtonClick = () => {
+      fileInputRef.current.click();
+    };
+    const handleDeleteFile = () =>{
+        setFile(null)
+    }
+
     return (
         <Stack horizontal className={`${isDark ? styles.questionInputContainer:styles.questionInputContainerDark }`}>
+            
+            <div className={`${attachmentOptions ? styles.upload:styles.uploadHide}`}>
+            <div>
+      <input
+        type="file"
+        style={{ display: 'none' }}
+        ref={fileInputRef}
+        onChange={handleFileChange}
+        accept=" .txt" // Only accept PDF and DOCX files
+      />
+      <button onClick={handleButtonClick} className={styles.uploadFileText}>
+        Upload a File
+      </button>
+      <div className={`${file ?styles.fileSelected:styles.fileSelectedHide }`}>
+        {file && <div className={styles.fileName}>
+
+            {file.name}
+            <button className={styles.deleteFile} onClick={handleDeleteFile}>x</button>
+            </div>}
+            {fileContent && <div><strong>Content:</strong><pre>{fileContent}</pre></div>}
+        
+      </div>
+    </div>
+            </div>
+            <img className={styles.paperclip} src="/paperclip.png" alt="" onClick={handleAttach}/>
             <TextField
                      style={{
                         backgroundColor: isDark ? '#fff' : '#292929',

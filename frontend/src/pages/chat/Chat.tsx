@@ -276,7 +276,7 @@ const Chat = () => {
         "¿Tenemos productos de pasarelas de pago?"
         ,"¿La compañía tiene soluciones para empresas facturadoras?"
         ,"¿Qué aplicaciones y servicios posee la compañía?"
-        ,"¿Qué servicios están localizados en Brasil?"
+        ,"¿Cómo puedo enviar dinero a otra persona usando ATH Móvil?"
     ]
 
     const {starter, setStarter} = useContext(darkContext)
