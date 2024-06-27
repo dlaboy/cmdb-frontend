@@ -139,7 +139,7 @@ export const QuestionInput = ({ onSend, disabled, placeholder, clearOnSend}: Pro
         reader.onload = (e) => {
           setFileContent(e.target.result); // Reading the file content
         };
-        if 
+        
         reader.readAsText(event.target.files[0]); // Assumes the file is a text file
       }
     };
@@ -150,7 +150,7 @@ export const QuestionInput = ({ onSend, disabled, placeholder, clearOnSend}: Pro
     };
     const handleDeleteFile = () =>{
         setFile(null)
-    }
+    };
 
     return (
         <Stack horizontal className={`${isDark ? styles.questionInputContainer:styles.questionInputContainerDark }`}>
