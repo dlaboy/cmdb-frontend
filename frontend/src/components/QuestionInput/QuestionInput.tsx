@@ -22,6 +22,7 @@ export const QuestionInput = ({ onSend, disabled, placeholder, clearOnSend}: Pro
     
     const {isDark, setIsDark} = useContext(darkContext)
     const {starter, setStarter} = useContext(darkContext)
+    const {file,setFile} = useContext(darkContext)
     const [triggerStarter,setTrigger] = useState(0)
     
     useEffect(()=>{
@@ -38,7 +39,7 @@ export const QuestionInput = ({ onSend, disabled, placeholder, clearOnSend}: Pro
         }
     },[triggerStarter])
     
-    const [file, setFile] = useState<File | null>(null);
+    // const [file, setFile] = useState<File | null>(null);
     const [fileContent, setFileContent] = useState<string>('');
     const fileInputRef = useRef<HTMLInputElement>(null);
 
@@ -56,7 +57,8 @@ export const QuestionInput = ({ onSend, disabled, placeholder, clearOnSend}: Pro
         }
 
         if (fileContent == '') {
-            onSend(question);
+            let formatedQuestion = `Question: ${question}`;
+            onSend(formatedQuestion);
         }
         else{
             let combinedQuestion = `Question: ${question}\nFile Content:\n${fileContent}`;

@@ -12,6 +12,9 @@ interface DarkContextProps {
   setLanguage: React.Dispatch<React.SetStateAction<string>>;
   starter: string;
   setStarter: React.Dispatch<React.SetStateAction<string>>;
+  file: File|null;
+  setFile: React.Dispatch<React.SetStateAction<File|null>>;
+
 }
 
 // Create the context with initial values
@@ -23,7 +26,9 @@ const initialContext: DarkContextProps = {
   userLanguage: 'en',
   setLanguage: () => {},
   starter: '',
-  setStarter: () => {}
+  setStarter: () => {},
+  file: null,
+  setFile: () => {} 
 };
 
 // Create the context
@@ -40,6 +45,8 @@ export const DarkThemeProvider: React.FC<DarkThemeProviderProps> = ({ children }
   const [seeCH, setSeeCH] = useState(false);
   const [userLanguage, setLanguage] = useState('en'); // Default language is English
   const [starter,setStarter] = useState('');
+  const [file, setFile] = useState<File | null>(null);
+
 
   
 
@@ -52,7 +59,9 @@ export const DarkThemeProvider: React.FC<DarkThemeProviderProps> = ({ children }
     userLanguage,
     setLanguage,
     starter,
-    setStarter
+    setStarter,
+    file,
+    setFile
   };
 
   // Render provider with context value

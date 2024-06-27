@@ -21,12 +21,14 @@ export default function App() {
     const [userLanguage, setLanguage] = useState("en"); // Default language is English
 
   const [starter,setStarter] = useState('');
+  const [file, setFile] = useState<File | null>(null);
+  
 
 
 
     
     return (
-        <darkContext.Provider value={{isDark,setIsDark, seeCH,setSeeCH,userLanguage,setLanguage,starter,setStarter}}>
+        <darkContext.Provider value={{file,setFile,isDark,setIsDark, seeCH,setSeeCH,userLanguage,setLanguage,starter,setStarter}}>
             <HashRouter>
                 <Routes>
                     <Route path="/" element={<Layout />}>
