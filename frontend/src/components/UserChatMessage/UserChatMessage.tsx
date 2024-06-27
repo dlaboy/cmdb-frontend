@@ -29,22 +29,22 @@ export const UserChatMessage = ({ message }: Props) => {
         return null; // Return null if 'File Content:' is not found
       }
       const question = extractQuestion(message)
-      const fileContent = extractFileContent(message)
+      // const fileContent = extractFileContent(message)
    
 
-      let fileName = '';
-      if (file){
-        fileName = file.name
-      }
+      // let fileName = '';
+      // if (file){
+      //   fileName = file.name
+      // }
     return (
         <div className={styles.container}>
             <div className={`${isDark ? styles.message:styles.messageDark } `}>
                 <div className="">
-                    {question}
+                    {message}
                 </div>
-                <div className={styles.fileUploaded}>
+                {/* <div className={styles.fileUploaded}>
                     {fileName}
-                </div>
+                </div> */}
 
 
             </div>

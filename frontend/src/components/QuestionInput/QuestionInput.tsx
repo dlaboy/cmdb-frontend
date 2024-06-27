@@ -57,8 +57,9 @@ export const QuestionInput = ({ onSend, disabled, placeholder, clearOnSend}: Pro
         }
 
         if (fileContent == '') {
-            let formatedQuestion = `Question: ${question}`;
-            onSend(formatedQuestion);
+            // let formatedQuestion = `Question: ${question}`;
+            // onSend(formatedQuestion);
+            onSend(question)
         }
         else{
             let combinedQuestion = `Question: ${question}\nFile Content:\n${fileContent}`;
