@@ -100,7 +100,7 @@ const Layout = () => {
                             <img height="70px" src={evertec} className={styles.evertecHeader}></img>
                             {/* <h3 className={styles.headerTitle}></h3> */}
                         </Link>
-                        <div className=""><h4 className={styles.title}>AI Product Navigator</h4></div>
+                        <div className=""><h4 className={styles.title}> Products Navigator Copilot</h4></div>
                         {/* <nav>
                             
                             <ul className={styles.headerNavList}>
