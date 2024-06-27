@@ -1,4 +1,4 @@
-import { useContext, useEffect, useRef, useState } from "react";
+import { ChangeEvent, useContext, useEffect, useRef, useState } from "react";
 import { Stack, TextField } from "@fluentui/react";
 import { getTokenOrRefresh } from './token_util';
 import { Send28Filled, BookOpenMicrophone28Filled, SlideMicrophone32Filled, TriangleRegular } from "@fluentui/react-icons";
@@ -38,9 +38,9 @@ export const QuestionInput = ({ onSend, disabled, placeholder, clearOnSend}: Pro
         }
     },[triggerStarter])
     
-    const [file, setFile] = useState(null);
-    const [fileContent, setFileContent] = useState('');
-    const fileInputRef = useRef(null);
+    const [file, setFile] = useState<File | null>(null);
+    const [fileContent, setFileContent] = useState<string>('');
+    const fileInputRef = useRef<HTMLInputElement>(null);
 
 
     useEffect(()=>{
@@ -132,21 +132,27 @@ export const QuestionInput = ({ onSend, disabled, placeholder, clearOnSend}: Pro
 
   
     // Handle file selection
-    const handleFileChange = (event) => {
-      setFile(event.target.files[0]); // Set the selected file
-      if (event.target.files[0]) {
-        const reader = new FileReader();
-        reader.onload = (e) => {
-          setFileContent(e.target.result); // Reading the file content
-        };
-        
-        reader.readAsText(event.target.files[0]); // Assumes the file is a text file
-      }
+    const handleFileChange = (event: ChangeEvent<HTMLInputElement>) => {
+        if (event.target.files != null){
+            setFile(event.target.files[0]); // Set the selected file
+            if (event.target.files[0]) {
+              const reader = new FileReader();
+              reader.onload = (e:ProgressEvent<FileReader> ) => {
+                  if (typeof e.target?.result === 'string'){
+                      setFileContent(e.target.result); // Reading the file content
+                  }
+              };
+              
+              reader.readAsText(event.target.files[0]); // Assumes the file is a text file
+            }
+        }
     };
   
     // Handle button click to trigger file input
     const handleButtonClick = () => {
-      fileInputRef.current.click();
+        if (fileInputRef.current){
+            fileInputRef.current.click();
+        }
     };
     const handleDeleteFile = () =>{
         setFile(null)

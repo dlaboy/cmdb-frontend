@@ -14,26 +14,43 @@ const Layout = () => {
     const {userLanguage,setLanguage} = useContext(darkContext)
 
     // Function to change the language
-    const changeLanguage = (lang) => {
+    const changeLanguage = (lang:string) => {
       setLanguage(lang);
     };
   
     // Texts in different languages
-    const texts = {
-      en: {
-        darkMode: 'Dark',
-        lightMode: 'Light ',
-      },
-      pt: {
-        darkMode: 'Escuro',
-        lightMode: 'Claro',
-      },
-      es: {
-        darkMode: 'Oscuro',
-        lightMode: 'Claro',
-      },
-      // Add more languages as needed
-    };
+    type String = {
+        en: {
+          darkMode: string;
+          lightMode: string;
+        };
+        pt: {
+          darkMode: string;
+          lightMode: string;
+        };
+        es: {
+          darkMode: string;
+          lightMode: string;
+        };
+        // Extend with additional languages as needed
+      };
+      
+      const texts:{ [key: string]: { darkMode: string, lightMode:string } } = {
+        en: {
+          darkMode: 'Dark',
+          lightMode: 'Light',
+        },
+        pt: {
+          darkMode: 'Escuro',
+          lightMode: 'Claro',
+        },
+        es: {
+          darkMode: 'Oscuro',
+          lightMode: 'Claro',
+        },
+        // Add more languages as needed
+      };
+      
 
     const handleDark = () =>{
 
