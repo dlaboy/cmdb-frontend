@@ -68,6 +68,10 @@ export const QuestionInput = ({ onSend, disabled, placeholder, clearOnSend}: Pro
 
         if (clearOnSend) {
             setQuestion("");
+            setFile(null)
+            setAttachmentOptions(false)
+
+
         }
     };
 
