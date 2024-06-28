@@ -215,14 +215,13 @@ export const QuestionInput = ({ onSend, disabled, placeholder, clearOnSend}: Pro
                     {/* <Send28Filled primaryFill="rgba(115, 118, 225, 1)" /> */}
                     <Send28Filled primaryFill="rgba(105, 105, 105, 1)" />
                 </div>
-                <div
+                {/* <div
                     className={`${styles.questionInputSendButton}}`}
                     aria-label="Boton hablar"
                     onClick={sttFromMic}
                 >
-                    {/* <SlideMicrophone32Filled primaryFill="rgba(115, 118, 225, 1)" /> */}
                     <SlideMicrophone32Filled primaryFill="rgba(105, 105, 105, 1)" />
-                </div>
+                </div> */}
             </div>
         </Stack>
     );
